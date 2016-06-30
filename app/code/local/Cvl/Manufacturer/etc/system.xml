@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <cvl translate="label" module="manufacturer">
+            <label>Cvl</label>
+            <sort_order>250</sort_order>
+        </cvl>
+    </tabs>
+</config>

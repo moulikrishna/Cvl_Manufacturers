@@ -1,0 +1,35 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $collection = $this->getCollection(); ?>
+<div class="page-title">
+    <h1><?php echo $this->__('Manufacturers') ?></h1>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if(!$collection->getSize()): ?>
+<p class="note-msg"><?php echo $this->__('There are no manufacturers available.') ?></p>
+<?php else: ?>
+<div class="category-products">
+    <?php $_iterator = 0; ?>
+    <ol class="products-grid" id="products-list">
+    <?php foreach ($collection as $_obj): ?>
+        <li class="item<?php if( ++$_iterator == sizeof($collection) ): ?> last<?php endif; ?>">
+            <a href="<?php echo $this->getUrl('manufacturer/index/productlist').'id/'.$_obj->getId() ?>">
+            <?php echo $this->getLayout()->createBlock('core/template')->setmanufacturerimage($_obj->getFilename())->setTemplate('manufacturer/manufacturer_resize.phtml')->toHtml(); ?></a>
+                <div class="f-fix">
+                    <?php $_nameStripped = $this->stripTags($_obj->getName(), null, true); ?>
+                    <h2 class="product-name"><a href="<?php echo $this->getUrl('manufacturer/index/productlist').'id/'.$_obj->getId() ?>" title="<?php echo $_nameStripped; ?>"><?php echo $_obj->getName(); ?></a></h2>
+                    <div class="desc std">
+                        Established In <?php echo $_obj->getEstYear(); ?>
+                    </div>
+                    <div class="desc std">
+                        <?php echo $_obj->getDescription(); ?>
+                    </div>
+                </div>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+    <div class="toolbar-bottom">
+        <?php echo $this->getPagerHtml(); ?>
+    </div>
+</div>
+<?php endif; ?>

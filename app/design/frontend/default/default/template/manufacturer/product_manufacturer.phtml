@@ -1,0 +1,15 @@
+
+<?php     
+$product = Mage::registry('current_product');
+    $manufacturers=Mage::getModel('manufacturer/manufacturer')->getCollection()->addFieldToFilter('id',$product->getData('cvl_manufacturers'))->addFieldToFilter('status',1);
+    foreach($manufacturers as $manufacturer){?>
+        <div class="manufacturer-img-box">
+        <a href="<?php echo $this->getBaseUrl()."catalogsearch/advanced/result/?cvl_manufacturers[]=".$product->getData('cvl_manufacturers') ?>">
+        <?php echo $this->getLayout()->createBlock('core/template')->setmanufacturerimage($manufacturer->getFilename())->setTemplate('manufacturer/manufacturer_resize.phtml')->toHtml(); ?>
+        </a>
+        <div><a href="<?php echo $this->getBaseUrl()."catalogsearch/advanced/result/?cvl_manufacturers[]=".$product->getData('cvl_manufacturers') ?>"><?php echo $manufacturer->getName(); ?></a></div>
+        <div>Established In <?php echo $manufacturer->getEstYear(); ?></div>
+        </div>
+<?php 
+	}
+?>
